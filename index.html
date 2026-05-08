@@ -28,51 +28,20 @@
 
   /* HERO */
   .hero { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 6rem 2rem 4rem; position: relative; overflow: hidden; }
-
-  /* Fond grille par défaut (toujours visible) */
-  .hero-bg {
-    position: absolute; inset: 0; z-index: 0;
-    background: radial-gradient(ellipse 60% 40% at 50% 60%, rgba(201,168,76,0.07) 0%, transparent 70%), var(--dark);
-  }
-  .hero-bg::before {
-    content: '';
-    position: absolute; inset: 0;
-    background-image:
-      repeating-linear-gradient(0deg, transparent, transparent 79px, rgba(201,168,76,0.04) 80px),
-      repeating-linear-gradient(90deg, transparent, transparent 79px, rgba(201,168,76,0.04) 80px);
-  }
-
-  /* Vidéo par-dessus le fond, cachée par défaut */
-  .hero-video {
-    position: absolute; inset: 0; z-index: 1;
-    opacity: 0; transition: opacity 0.8s ease;
-  }
+  .hero-bg { position: absolute; inset: 0; z-index: 0; background: radial-gradient(ellipse 60% 40% at 50% 60%, rgba(201,168,76,0.07) 0%, transparent 70%), var(--dark); }
+  .hero-bg::before { content: ''; position: absolute; inset: 0; background-image: repeating-linear-gradient(0deg, transparent, transparent 79px, rgba(201,168,76,0.04) 80px), repeating-linear-gradient(90deg, transparent, transparent 79px, rgba(201,168,76,0.04) 80px); }
+  .hero-video { position: absolute; inset: 0; z-index: 1; opacity: 0; transition: opacity 0.8s ease; }
   .hero-video.loaded { opacity: 1; }
   .hero-video video { width: 100%; height: 100%; object-fit: cover; }
-  .hero-video::after {
-    content: ''; position: absolute; inset: 0;
-    background: linear-gradient(to bottom, rgba(14,12,10,0.5) 0%, rgba(14,12,10,0.25) 50%, rgba(14,12,10,0.8) 100%);
-  }
-
-  /* Icône play sur le placeholder */
-  .hero-play-hint {
-    position: absolute; inset: 0; z-index: 1;
-    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem;
-    pointer-events: none;
-    transition: opacity 0.5s;
-  }
+  .hero-video::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(14,12,10,0.5) 0%, rgba(14,12,10,0.25) 50%, rgba(14,12,10,0.8) 100%); }
+  .hero-play-hint { position: absolute; inset: 0; z-index: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem; pointer-events: none; transition: opacity 0.5s; }
   .hero-play-hint.hidden { opacity: 0; }
-  .play-ring {
-    width: 64px; height: 64px;
-    border: 1px solid var(--border); border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    animation: pulse 3s ease-in-out infinite;
-  }
+  .play-ring { width: 64px; height: 64px; border: 1px solid var(--border); border-radius: 50%; display: flex; align-items: center; justify-content: center; animation: pulse 3s ease-in-out infinite; }
   .play-ring svg { width: 20px; height: 20px; fill: var(--gold); margin-left: 4px; }
   .play-lbl { font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--text-subtle); }
   @keyframes pulse { 0%,100%{box-shadow:0 0 0 0 rgba(201,168,76,0)} 50%{box-shadow:0 0 0 8px rgba(201,168,76,0.08)} }
 
-  .hero-content { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; }
+  .hero-content { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; width: 100%; }
   .hero-eyebrow { font-size: 0.65rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--gold); margin-bottom: 2.5rem; }
   .hero-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(4rem, 10vw, 9rem); font-weight: 300; line-height: 0.9; color: var(--text); text-shadow: 0 2px 40px rgba(0,0,0,0.4); }
   .hero-title em { font-style: italic; color: var(--gold); }
@@ -122,7 +91,7 @@
   .menu-item-info p{font-size:0.75rem;color:var(--text-subtle);font-style:italic}
   .menu-item-price{font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--gold);white-space:nowrap;flex-shrink:0}
 
-  /* GALERIE */
+  /* GALERIE — desktop */
   .galerie{background:var(--dark-2)}
   .galerie-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;margin-top:3rem}
   .g-item{position:relative;overflow:hidden;cursor:pointer;background:var(--dark-3);aspect-ratio:1/1}
@@ -183,14 +152,154 @@
   .fade-in{opacity:0;transform:translateY(20px);transition:opacity 0.8s ease,transform 0.8s ease}
   .fade-in.visible{opacity:1;transform:translateY(0)}
 
-  @media(max-width:768px){
-    nav{padding:1.2rem 1.5rem} .nav-links{display:none}
-    .about-grid,.horaires-grid{grid-template-columns:1fr;gap:3rem}
-    .galerie-grid{grid-template-columns:repeat(2,1fr)}
-    .g-item.wide{grid-column:span 2}
-    footer{padding:2rem 1.5rem;flex-direction:column;text-align:center}
-    .footer-links{justify-content:center}
-    .lb-nav.prev{left:0.4rem} .lb-nav.next{right:0.4rem}
+  /* ============================================================
+     MOBILE — iPhone 17 Pro (393px × 852pt)
+     Cible : max-width 430px pour couvrir tous les Pro models
+     ============================================================ */
+  @media(max-width:430px){
+
+    /* NAV */
+    nav { padding: 1rem 1.2rem; }
+    .nav-links { display: none; }
+    .nav-cta { padding: 0.5rem 1rem; font-size: 0.6rem; }
+
+    /* HERO — tout bien centré */
+    .hero {
+      padding: 5rem 1.2rem 5rem;
+      min-height: 100svh; /* safe viewport height sur iPhone */
+      justify-content: center;
+    }
+    .hero-eyebrow {
+      font-size: 0.55rem;
+      letter-spacing: 0.25em;
+      margin-bottom: 1.5rem;
+    }
+    .hero-title {
+      font-size: clamp(3.8rem, 18vw, 5.5rem);
+      line-height: 0.88;
+    }
+    .hero-subtitle {
+      font-size: 1rem;
+      margin-top: 1rem;
+      padding: 0 1rem;
+    }
+    .hero-divider { margin: 2rem auto; height: 40px; }
+
+    /* Infos hero : 2×2 sur mobile, parfaitement centrées */
+    .hero-info {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem 2rem;
+      width: 100%;
+      max-width: 280px;
+      margin: 0 auto;
+      justify-items: center;
+    }
+    .hero-info-item {
+      text-align: center;
+      width: 100%;
+    }
+    .hero-info-item span {
+      font-size: 0.5rem;
+      letter-spacing: 0.2em;
+    }
+    .hero-info-item strong {
+      font-size: 0.78rem;
+    }
+    .hero-scroll { bottom: 1.5rem; }
+
+    /* SECTIONS */
+    section { padding: 4rem 1.2rem; }
+
+    /* ABOUT */
+    .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .about-pillars { grid-template-columns: 1fr 1fr; }
+    .pillar { padding: 1.2rem 1rem; }
+    .pillar h4 { font-size: 0.95rem; }
+    .pillar p { font-size: 0.7rem; }
+
+    /* MENU */
+    .menu-header { flex-direction: column; align-items: flex-start; gap: 1.2rem; margin-bottom: 2rem; }
+    .menu-tabs { width: 100%; }
+    .tab { flex: 1; padding: 0.6rem 0.5rem; font-size: 0.58rem; text-align: center; }
+    .menu-grid { grid-template-columns: 1fr; }
+    .menu-item { padding: 1.2rem; }
+
+    /* =====================================================
+       GALERIE MOBILE — 1 colonne pleine largeur, centrée
+       Toutes les photos en wide (ratio 4/3), bord à bord
+       ===================================================== */
+    .galerie { padding: 4rem 0; } /* pas de padding latéral pour aller bord à bord */
+    .galerie .container { padding: 0 1.2rem; } /* titre avec padding */
+    .galerie-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      margin-top: 2rem;
+      width: 100%;
+    }
+    /* Tous les items deviennent full-width */
+    .g-item,
+    .g-item.wide {
+      grid-column: unset;
+      width: 100%;
+      aspect-ratio: 4 / 3;   /* ratio large et aéré, idéal mobile */
+    }
+    /* Toujours afficher l'overlay sur mobile (pas de hover) */
+    .g-overlay {
+      background: rgba(14,12,10,0.15);
+    }
+    .g-overlay svg {
+      opacity: 0.6;
+      transform: scale(1);
+    }
+
+    /* LIGHTBOX mobile */
+    #lbImg { max-width: 95vw; max-height: 75vh; }
+    .lb-nav.prev { left: 0.3rem; width: 36px; height: 36px; }
+    .lb-nav.next { right: 0.3rem; width: 36px; height: 36px; }
+    .lb-close { top: 1.2rem; right: 1rem; }
+    .lb-counter { bottom: 1.2rem; font-size: 0.58rem; }
+
+    /* HORAIRES */
+    .horaires-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .schedule-table td { font-size: 0.78rem; padding: 0.8rem 0; }
+    .schedule-table td:first-child { font-size: 0.62rem; }
+
+    /* RESERVATION */
+    .reservation { padding: 4rem 1.2rem; }
+    .btn-primary, .btn-outline {
+      display: block;
+      width: 100%;
+      text-align: center;
+      margin-right: 0;
+      padding: 1rem;
+    }
+
+    /* FOOTER */
+    footer {
+      padding: 2rem 1.2rem;
+      flex-direction: column;
+      text-align: center;
+      gap: 1.2rem;
+    }
+    .footer-links { justify-content: center; flex-wrap: wrap; gap: 1rem; }
+  }
+
+  /* Tablette / grand mobile (431px–768px) */
+  @media(min-width:431px) and (max-width:768px){
+    nav { padding: 1.2rem 1.5rem; }
+    .nav-links { display: none; }
+    .about-grid, .horaires-grid { grid-template-columns: 1fr; gap: 3rem; }
+
+    /* Galerie : 2 colonnes, les wide prennent toute la largeur */
+    .galerie-grid { grid-template-columns: repeat(2,1fr); }
+    .g-item.wide { grid-column: span 2; aspect-ratio: 16/7; }
+
+    footer { padding: 2rem 1.5rem; flex-direction: column; text-align: center; }
+    .footer-links { justify-content: center; }
+    .lb-nav.prev { left: 0.4rem; }
+    .lb-nav.next { right: 0.4rem; }
   }
 </style>
 </head>
@@ -210,37 +319,16 @@
 
 <!-- HERO -->
 <section class="hero">
-
-  <!-- Fond grille doré (toujours visible en arrière-plan) -->
   <div class="hero-bg"></div>
-
-  <!-- Icône play — disparaît dès que la vidéo charge -->
   <div class="hero-play-hint" id="playHint">
     <div class="play-ring">
       <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
     </div>
-    <span class="play-lbl">
-      <!-- ============================================================
-           👉 Quand tu auras ta vidéo, remplace ce texte par rien du tout.
-              La vidéo apparaîtra automatiquement en fond.
-           ============================================================ -->
-      Vidéo de présentation à venir
-    </span>
+    <span class="play-lbl">Vidéo de présentation à venir</span>
   </div>
-
-  <!-- ============================================================
-       👉 VIDÉO DE FOND
-       Quand tu as ta vidéo :
-       1. Mets le fichier dans le dossier video/ de ton repo
-       2. Remplace "video/presentation.mp4" par le bon chemin
-       La vidéo s'affichera en fondu dès qu'elle sera chargée.
-       ============================================================ -->
   <div class="hero-video" id="heroVideo">
-    <video id="heroVid" autoplay muted loop playsinline
-           src="Videos/presentation.mp4">
-    </video>
+    <video id="heroVid" autoplay muted loop playsinline src="Videos/presentation.mp4"></video>
   </div>
-
   <div class="hero-content">
     <p class="hero-eyebrow">Restaurant Gastronomique · Lomé, Togo</p>
     <h1 class="hero-title">Le<br><em>Gourmet</em></h1>
@@ -268,10 +356,10 @@
         <p>Notre cuisine mêle les saveurs d'ici et d'ailleurs, sublimées par un savoir-faire rigoureux. Accompagnez votre repas d'une sélection de cocktails artisanaux préparés par notre équipe.</p>
       </div>
       <div class="about-pillars">
-        <div class="pillar"><div class="pillar-icon"></div><h4>Gastronomie</h4><p>Une cuisine d'exception, pensée dans les moindres détails</p></div>
-        <div class="pillar"><div class="pillar-icon"></div><h4>Bar Craft</h4><p>Cocktails artisanaux & sélection de spiritueux</p></div>
-        <div class="pillar"><div class="pillar-icon"></div><h4>Garden</h4><p>Un cadre naturel apaisant, loin de l'agitation</p></div>
-        <div class="pillar"><div class="pillar-icon"></div><h4>Service</h4><p>Une attention portée à chaque convive</p></div>
+        <div class="pillar"><div class="pillar-icon">⚜</div><h4>Gastronomie</h4><p>Une cuisine d'exception, pensée dans les moindres détails</p></div>
+        <div class="pillar"><div class="pillar-icon">🥃</div><h4>Bar Craft</h4><p>Cocktails artisanaux & sélection de spiritueux</p></div>
+        <div class="pillar"><div class="pillar-icon">🌿</div><h4>Garden</h4><p>Un cadre naturel apaisant, loin de l'agitation</p></div>
+        <div class="pillar"><div class="pillar-icon">🤵</div><h4>Service</h4><p>Une attention portée à chaque convive</p></div>
       </div>
     </div>
   </div>
@@ -302,95 +390,79 @@
       <p class="section-label">Galerie</p>
       <h2 class="section-title">L'atmosphère<br><em>du Gourmet</em></h2>
     </div>
+  </div>
 
-    <svg style="display:none">
-      <symbol id="zoom-icon" viewBox="0 0 24 24">
-        <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
-      </symbol>
-    </svg>
+  <svg style="display:none">
+    <symbol id="zoom-icon" viewBox="0 0 24 24">
+      <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+    </symbol>
+  </svg>
 
-    <div class="galerie-grid fade-in" id="galerieGrid">
-
-      <!-- PHOTO 1 — Large -->
-       <!-- g-item wide -->
-      <div class="g-item wide" onclick="openLb(0)">
-        <img src="Images/IMG_1100.JPG" alt="Le Gourmet — ambiance">
-        <div class="g-overlay"><svg><use href="#zoom-icon"/></svg></div>
-      </div>
-      <!-- PHOTO 2 -->
-      <div class="g-item" onclick="openLb(1)">
-        <img src="Images/IMG_1098.WEBP" alt="Le Gourmet — jardin">
-        <div class="g-overlay"><svg><use href="#zoom-icon"/></svg></div>
-      </div>
-      <!-- PHOTO 3 -->
-      <div class="g-item" onclick="openLb(2)">
-        <img src="Images/IMG_1097.WEBP" alt="Le Gourmet — plat">
-        <div class="g-overlay"><svg><use href="#zoom-icon"/></svg></div>
-      </div>
-      <!-- PHOTO 4— Large -->
-      <div class="g-item" onclick="openLb(3)">
-        <img src="Images/IMG_1106.JPG" alt="Le Gourmet — bar">
-        <div class="g-overlay"><svg><use href="#zoom-icon"/></svg></div>
-      </div>
-      <!-- PHOTO 5 -->
-      <div class="g-item" onclick="openLb(4)">
-        <img src="Images/IMG_1108.WEBP" alt="Le Gourmet — cocktail">
-        <div class="g-overlay"><svg><use href="#zoom-icon"/></svg></div>
-      </div>
-      <!-- PHOTO 6 -->
-      <div class="g-item" onclick="openLb(5)">
-        <img src="Images/IMG_1109.WEBP" alt="Le Gourmet — salle">
-        <div class="g-overlay"><svg><use href="#zoom-icon"/></svg></div>
-      </div>
-      <!-- PHOTO 7 -->
-      <div class="g-item" onclick="openLb(6)">
-        <img src="Images/IMG_1110.WEBP" alt="Le Gourmet — détail">
-        <div class="g-overlay"><svg><use href="#zoom-icon"/></svg></div>
-      </div>
-      <!-- PHOTO 8 -->
-      <div class="g-item" onclick="openLb(7)">
-        <img src="Images/IMG_1111.WEBP" alt="Le Gourmet — détail">
-        <div class="g-overlay"><svg><use href="#zoom-icon"/></svg></div>
-      </div>
-      <!-- PHOTO 9 -->
-      <div class="g-item" onclick="openLb(8)">
-        <img src="Images/IMG_1112.WEBP" alt="Le Gourmet — détail">
-        <div class="g-overlay"><svg><use href="#zoom-icon"/></svg></div>
-      </div>
-      <!-- PHOTO 10 -->
-      <div class="g-item" onclick="openLb(9)">
-        <img src="Images/IMG_1113.JPG" alt="Le Gourmet — détail">
-        <div class="g-overlay"><svg><use href="#zoom-icon"/></svg></div>
-      </div>
-      <!-- PHOTO 11 -->
-      <div class="g-item" onclick="openLb(10)">
-        <img src="Images/IMG_1114.JPG" alt="Le Gourmet — détail">
-        <div class="g-overlay"><svg><use href="#zoom-icon"/></svg></div>
-      </div>
-      <!-- PHOTO 12 -->
-      <div class="g-item" onclick="openLb(11)">
-        <img src="Images/IMG_1115.JPG" alt="Le Gourmet — détail">
-        <div class="g-overlay"><svg><use href="#zoom-icon"/></svg></div>
-      </div>
-      <!-- PHOTO 13 -->
-      <div class="g-item" onclick="openLb(12)">
-        <img src="Images/IMG_1116.JPG" alt="Le Gourmet — détail">
-        <div class="g-overlay"><svg><use href="#zoom-icon"/></svg></div>
-      </div>
-      <!-- PHOTO 14 -->
-      <div class="g-item" onclick="openLb(13)">
-        <img src="Images/IMG_1118.JPG" alt="Le Gourmet — détail">
-        <div class="g-overlay"><svg><use href="#zoom-icon"/></svg></div>
-      </div>
-
-      <!--
-        👉 AJOUTER UNE PHOTO :
-        <div class="g-item" onclick="openLb(8)">
-          <img src="images/photo9.jpg" alt="Description">
-          <div class="g-overlay"><svg><use href="#zoom-icon"/></svg></div>
-        </div>
-      -->
+  <!-- La grille sort du container pour aller bord à bord sur mobile -->
+  <div class="galerie-grid fade-in" id="galerieGrid">
+    <div class="g-item wide" onclick="openLb(0)">
+      <img src="Images/IMG_1100.JPG" alt="Le Gourmet — ambiance">
+      <div class="g-overlay"><svg><use href="#zoom-icon"/></svg></div>
     </div>
+    <div class="g-item" onclick="openLb(1)">
+      <img src="Images/IMG_1098.WEBP" alt="Le Gourmet — jardin">
+      <div class="g-overlay"><svg><use href="#zoom-icon"/></svg></div>
+    </div>
+    <div class="g-item" onclick="openLb(2)">
+      <img src="Images/IMG_1097.WEBP" alt="Le Gourmet — plat">
+      <div class="g-overlay"><svg><use href="#zoom-icon"/></svg></div>
+    </div>
+    <div class="g-item" onclick="openLb(3)">
+      <img src="Images/IMG_1106.jpg" alt="Le Gourmet — bar">
+      <div class="g-overlay"><svg><use href="#zoom-icon"/></svg></div>
+    </div>
+    <div class="g-item" onclick="openLb(4)">
+      <img src="Images/IMG_1108.WEBP" alt="Le Gourmet — cocktail">
+      <div class="g-overlay"><svg><use href="#zoom-icon"/></svg></div>
+    </div>
+    <div class="g-item" onclick="openLb(5)">
+      <img src="Images/IMG_1109.WEBP" alt="Le Gourmet — salle">
+      <div class="g-overlay"><svg><use href="#zoom-icon"/></svg></div>
+    </div>
+    <div class="g-item" onclick="openLb(6)">
+      <img src="Images/IMG_1110.WEBP" alt="Le Gourmet — détail">
+      <div class="g-overlay"><svg><use href="#zoom-icon"/></svg></div>
+    </div>
+    <div class="g-item" onclick="openLb(7)">
+      <img src="Images/IMG_1111.WEBP" alt="Le Gourmet — détail">
+      <div class="g-overlay"><svg><use href="#zoom-icon"/></svg></div>
+    </div>
+    <div class="g-item" onclick="openLb(8)">
+      <img src="Images/IMG_1112.WEBP" alt="Le Gourmet — détail">
+      <div class="g-overlay"><svg><use href="#zoom-icon"/></svg></div>
+    </div>
+    <div class="g-item" onclick="openLb(9)">
+      <img src="Images/IMG_1113.JPG" alt="Le Gourmet — détail">
+      <div class="g-overlay"><svg><use href="#zoom-icon"/></svg></div>
+    </div>
+    <div class="g-item" onclick="openLb(10)">
+      <img src="Images/IMG_1114.JPG" alt="Le Gourmet — détail">
+      <div class="g-overlay"><svg><use href="#zoom-icon"/></svg></div>
+    </div>
+    <div class="g-item" onclick="openLb(11)">
+      <img src="Images/IMG_1115.JPG" alt="Le Gourmet — détail">
+      <div class="g-overlay"><svg><use href="#zoom-icon"/></svg></div>
+    </div>
+    <div class="g-item" onclick="openLb(12)">
+      <img src="Images/IMG_1116.JPG" alt="Le Gourmet — détail">
+      <div class="g-overlay"><svg><use href="#zoom-icon"/></svg></div>
+    </div>
+    <div class="g-item" onclick="openLb(13)">
+      <img src="Images/IMG_1118.JPG" alt="Le Gourmet — détail">
+      <div class="g-overlay"><svg><use href="#zoom-icon"/></svg></div>
+    </div>
+    <!--
+      👉 AJOUTER UNE PHOTO :
+      <div class="g-item" onclick="openLb(14)">
+        <img src="Images/nom-fichier.jpg" alt="Description">
+        <div class="g-overlay"><svg><use href="#zoom-icon"/></svg></div>
+      </div>
+    -->
   </div>
 </section>
 
@@ -431,7 +503,7 @@
         <div class="gold-line"></div>
         <div class="contact-item"><span class="contact-label">Adresse</span><span class="contact-value">Lomé, Togo</span></div>
         <div class="contact-item"><span class="contact-label">Réseaux sociaux</span><span class="contact-value"><a href="https://www.instagram.com/legourmetlome/" target="_blank">@legourmetlome</a></span></div>
-        <div class="contact-item"><span class="contact-label">Réservation recommandée</span><span class="contact-value"> + 228 90 43 43 35</span></div>
+        <div class="contact-item"><span class="contact-label">Réservation recommandée</span><span class="contact-value">+ 228 90 43 43 35</span></div>
       </div>
     </div>
   </div>
@@ -499,20 +571,12 @@ function switchTab(btn,cat){
 }
 renderMenu('entrees');
 
-/* VIDEO — fondu au chargement, placeholder si absente */
+/* VIDEO */
 const vid = document.getElementById('heroVid');
 const videoWrap = document.getElementById('heroVideo');
 const playHint = document.getElementById('playHint');
-
-function videoReady() {
-  videoWrap.classList.add('loaded'); // fondu vers la vidéo
-  playHint.classList.add('hidden'); // cache le placeholder
-}
-vid.addEventListener('canplay', videoReady);
-vid.addEventListener('error', () => {
-  // Vidéo absente : le fond grille reste visible, c'est parfait
-  videoWrap.style.display = 'none';
-});
+vid.addEventListener('canplay', () => { videoWrap.classList.add('loaded'); playHint.classList.add('hidden'); });
+vid.addEventListener('error', () => { videoWrap.style.display='none'; });
 
 /* LIGHTBOX */
 const galleryItems = Array.from(document.querySelectorAll('#galerieGrid .g-item'));
@@ -533,6 +597,14 @@ document.addEventListener('keydown',e=>{
   if(e.key==='ArrowRight') navLb(1);
   if(e.key==='ArrowLeft') navLb(-1);
   if(e.key==='Escape') closeLb();
+});
+
+/* Swipe tactile sur la lightbox */
+let touchStartX = 0;
+document.getElementById('lightbox').addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, {passive:true});
+document.getElementById('lightbox').addEventListener('touchend', e => {
+  const dx = e.changedTouches[0].clientX - touchStartX;
+  if(Math.abs(dx) > 50) navLb(dx < 0 ? 1 : -1);
 });
 
 /* NAV */
